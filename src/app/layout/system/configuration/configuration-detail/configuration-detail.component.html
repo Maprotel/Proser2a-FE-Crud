@@ -1,0 +1,65 @@
+<!-- Horizontal Form-->
+
+
+<div class="card-close">
+  <div class="dropdown">
+    <button type="button" id="closeCard2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"
+            class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+    <div aria-labelledby="closeCard2"
+         class="dropdown-menu dropdown-menu-right has-shadow"><a href="#"
+         class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a
+         href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a>
+    </div>
+  </div>
+</div>
+<div class="card-header d-flex align-items-center">
+  <p class="h4">Detalle de la variable de configuración</p>
+</div>
+<div class="card-body">
+
+  <!-- /********************************************************************************/ -->
+  <form class="form-horizontal two-col" [formGroup]="recordForm">
+
+
+
+    <!-- key -->
+    <article class="form-group" id="key">
+      <label class="register-label small">Código</label>
+      <input type="text" formControlName="key"
+             class="form-control register-input" />
+      <div *ngIf="(f.key.errors && !f.key.pristine)" class="small text-danger">
+        <div *ngIf="f.key.errors.required">
+          Este dato es obligatorio
+        </div>
+      </div>
+    </article>
+
+    <!-- value -->
+    <article class="form-group" id="value">
+      <label class="register-label small">Nombre</label>
+      <input type="text" formControlName="value"
+             class="form-control register-input" />
+      <div *ngIf="(f.value.errors && !f.value.pristine)"
+           class="small text-danger">
+        <div *ngIf="f.value.errors.required">
+          Este dato es obligatorio
+        </div>
+      </div>
+    </article>
+
+
+
+    <div class="d-flex justify-content-between mt-0 pt-2 mb-0 pb-0">
+      <div class="form-group row">
+
+        <input type="submit" value="Guardar" class="btn btn-success btn-sm mr-1"
+               *ngIf="!recordForm.pristine && recordForm.valid"
+               (click)="onSubmit()">
+        <input type="button" value="Regresar a la lista" (click)="onReturn()"
+               class="btn btn-secondary btn-sm mr-1">
+
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,63 @@
+<!-- Side Navbar -->
+<nav class="side-navbar left-mdsidenav">
+  <!-- Sidebar Header-->
+  <div class="sidebar-header d-flex align-items-center" *ngIf="currentUser">
+    <div class="avatar"><img src="../../../assets/img/avatar-1.jpg" alt="..."
+           class="img-fluid rounded-circle"></div>
+    <div class="title">
+      <h1 class="h4">{{currentUser.user.firstname}}
+        {{currentUser.user.lastname}} </h1>
+      <p>{{currentUser.user.profile}}</p>
+    </div>
+  </div>
+
+  <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+
+  <ul class="list-unstyled">
+    <li class="active" *ngIf="!currentUser"><a [routerLink]="'/login'"> <i
+           class="icon-interface-windows"></i>Login </a>
+    </li>
+    <li><a href="index.html"> <i class="icon-home"></i>Home </a>
+    </li>
+    <li><a aria-expanded="false" (click)="toogleEntities()"
+         data-toggle="collapse"> <i class="icon-interface-windows"></i>Maestros
+      </a>
+
+      <!-- class="collapse list-unstyled " -->
+      <ul [collapse]="isCollapsedEntities">
+        <li><a
+             [routerLink]="'/layout/configuration/configuration-list'">Configuración</a>
+        </li>
+        <li><a [routerLink]="'/layout/store/store-list'">Tiendas</a></li>
+        <li><a [routerLink]="'/layout/campaign/campaign-list'">Campañas</a></li>
+        <li><a
+             [routerLink]="'/layout/membership/membership-list'">Membresías</a>
+        </li>
+        <li><a href="#">Usuarios</a></li>
+      </ul>
+
+    </li>
+
+    <li><a aria-expanded="false" (click)="toogleReports()"
+         data-toggle="collapse"> <i class="icon-grid"></i>Reportes </a>
+
+      <!-- class="collapse list-unstyled " -->
+      <ul [collapse]="isCollapsedReports">
+        <li><a [routerLink]="'/layout/report-commission-promoter'">Comisión por
+            Cambaceador</a></li>
+      </ul>
+
+    </li>
+    <li><a [routerLink]="'/'"> <i class="fa fa-bar-chart"></i>Charts </a></li>
+    <li><a [routerLink]="'/login'"> <i class="icon-padnote"></i>Forms </a></li>
+    <li><a *ngIf="!currentUser" [routerLink]="'/login'"> <i
+           class="icon-interface-windows"></i>Login page
+      </a></li>
+  </ul><span class="heading">Extras</span>
+  <ul class="list-unstyled">
+    <li> <a [routerLink]="'/login'"> <i class="icon-flask"></i>Demo </a></li>
+    <li> <a [routerLink]="'/login'"> <i class="icon-screen"></i>Demo </a></li>
+    <li> <a [routerLink]="'/login'"> <i class="icon-mail"></i>Demo </a></li>
+    <li> <a [routerLink]="'/login'"> <i class="icon-picture"></i>Demo </a></li>
+  </ul>
+</nav>

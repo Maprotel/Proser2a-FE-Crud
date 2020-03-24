@@ -1,0 +1,16 @@
+<!-- Navbar Header-->
+<div class="navbar-header">
+  <!-- Toggle Button-->
+  <a class="{{toogleIcon}}" (click)="toogleSidebar()"
+     [attr.aria-expanded]="!isCollapsed"
+     aria-controls="collapseBasic"><span></span><span></span><span></span>
+  </a>
+
+  <!-- Navbar Brand --><a [routerLink]="'/'"
+     class="navbar-brand d-none d-sm-inline-block">
+    <div class="brand-text d-none d-lg-inline-block"><span>Maprotel -
+      </span><strong>ProSer</strong></div>
+    <div class="brand-text d-none d-sm-inline-block d-lg-none">
+      <strong>GN</strong></div>
+  </a>
+</div>

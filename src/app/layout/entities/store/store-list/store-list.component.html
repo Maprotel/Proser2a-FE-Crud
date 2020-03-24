@@ -1,0 +1,153 @@
+<div class="card-close">
+  <!-- <div class="dropdown">
+    <button type="button" id="closeCard4" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"
+            class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+    <div aria-labelledby="closeCard4"
+         class="dropdown-menu dropdown-menu-right has-shadow"><a href="#"
+         class="dropdown-store remove"> <i class="fa fa-times"></i>Close</a><a
+         href="#" class="dropdown-store edit"> <i
+           class="fa fa-gear"></i>Edit</a>
+    </div>
+  </div> -->
+</div>
+<div class="card-header d-flex align-stores-center">
+  <h3 class="h4">Lista de Tiendas</h3>
+</div>
+
+
+<div class="card-body mt-0 pt-2">
+
+  <section class="d-flex justify-content-between mt-0 pt-2 mb-0 pb-0">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary btn-sm mr-1" (click)="onGetRecords()">
+          Todos</button>
+        <button class="btn btn-secondary btn-sm mr-1"
+                (click)="onExportToCsv()">Exportar</button>
+        <button class="btn btn-outline-primary btn-sm mr-1"
+                (click)="onNewRecord()">Nuevo</button>
+        <button class="btn btn-success btn-sm mr-1" (click)="onEditRecord()"
+                *ngIf="selectedRecord.storeId">Editar</button>
+        <button class="btn btn-danger btn-sm mr-1" (click)="open(content)"
+                *ngIf="selectedRecord.storeId">Eliminar</button>
+      </div>
+
+      <div class="col">
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Busqueda</label>
+          <div class="col-sm-9">
+            <input id="search" type="email" placeholder="Escriba aqui..."
+                   [(ngModel)]="findInList"
+                   class="form-control form-control-success"
+                   (keyup)="onSearch(findInList)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class=" table-wrapper-scroll-y table-scrollbar ">
+    <table mdbTable class="table table-sm table-hover tableFixHead ">
+      <thead>
+        <tr>
+          <th class="text-right tableHeaderBackground">#</th>
+          <th class="text-right tableHeaderBackground">Código Tienda</th>
+          <th class="text-right tableHeaderBackground">Nombre Tienda</th>
+          <th class="text-right tableHeaderBackground">Dirección</th>
+          <th class="text-right tableHeaderBackground">Teléfono</th>
+          <th class="text-right tableHeaderBackground">Encargado</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let store of selectedList; index as i"
+            (click)="updateSelection(store, i)" (dblclick)="onEditRecord()"
+            [class.active]="i == selectedRow">
+
+          <th scope=" row" class="text-right">{{store.storeId}}</th>
+
+          <!-- storeCodeId -->
+          <td class="text-right" width="5%">
+            <ngb-highlight [result]="store.storeCodeId" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+          <!-- store.storeName -->
+          <td class="text-right">
+            <ngb-highlight [result]="store.storeName" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+          <!-- store.storeAddress -->
+          <td class="text-right">
+            <ngb-highlight [result]="store.storeAddress" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+          <!-- store.storePhone -->
+          <td class="text-right">
+            <ngb-highlight [result]="store.storePhone" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+          <!-- store.storeInCharge -->
+          <td class="text-right">
+            <ngb-highlight [result]="store.storeInCharge" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- /*****************************************/ -->
+
+<ng-template #content let-modal>
+  <!-- header -->
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Eliminar el registro</h4>
+
+    <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- body -->
+  <div class="modal-body">
+
+    <p class="small">Está seguro que quiere eliminar la tienda:</p>
+
+    <p class="h2">{{selectedRecord.storeName}}</p>
+
+    <p class="h4">¡Esta acción es irreversible!</p>
+
+  </div>
+  <!-- buttons -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" ngbAutofocus
+            (click)="modal.close('Save click')">No</button>
+
+    <button type="button" class="btn btn-danger"
+            (click)="onDeleteRecord(selectedRecord)">Si</button>
+  </div>
+</ng-template>
+
+
+<!-- 
+<form>
+  <div class="form-group">
+    <label for="dateOfBirth">Date of birth</label>
+    <div class="input-group">
+      <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" ngbDatepicker #dp="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar"
+                (click)="dp.toggle()" type="button"></button>
+      </div>
+    </div>
+  </div>
+</form> -->

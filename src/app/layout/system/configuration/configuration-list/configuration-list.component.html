@@ -1,0 +1,114 @@
+<div class="card-close">
+  <!-- <div class="dropdown">
+    <button type="button" id="closeCard4" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"
+            class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+    <div aria-labelledby="closeCard4"
+         class="dropdown-menu dropdown-menu-right has-shadow"><a href="#"
+         class="dropdown-listItem remove"> <i class="fa fa-times"></i>Close</a><a
+         href="#" class="dropdown-listItem edit"> <i
+           class="fa fa-gear"></i>Edit</a>
+    </div>
+  </div> -->
+</div>
+<div class="card-header d-flex align-stores-center">
+  <h3 class="h4">Configuración del Sistema - variables</h3>
+</div>
+
+
+<div class="card-body mt-0 pt-2">
+
+  <section class="d-flex justify-content-between mt-0 pt-2 mb-0 pb-0">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary btn-sm mr-1" (click)="onGetRecords()">
+          Todos</button>
+        <button class="btn btn-secondary btn-sm mr-1"
+                (click)="onExportToCsv()">Exportar</button>
+        <button class="btn btn-outline-primary btn-sm mr-1"
+                (click)="onNewRecord()">Nuevo</button>
+        <button class="btn btn-success btn-sm mr-1" (click)="onEditRecord()"
+                *ngIf="selectedRecord.key">Editar</button>
+        <button class="btn btn-danger btn-sm mr-1" (click)="open(content)"
+                *ngIf="selectedRecord.key">Eliminar</button>
+      </div>
+
+      <div class="col">
+        <div class="form-group row">
+          <label class="col-sm-3 form-control-label">Busqueda</label>
+          <div class="col-sm-9">
+            <input id="search" type="email" placeholder="Escriba aqui..."
+                   [(ngModel)]="findInList"
+                   class="form-control form-control-success"
+                   (keyup)="onSearch(findInList)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class=" table-wrapper-scroll-y table-scrollbar ">
+    <table mdbTable class="table table-sm table-hover tableFixHead ">
+      <thead>
+        <tr>
+          <th class="text-left tableHeaderBackground">key</th>
+          <th class="text-left tableHeaderBackground">value</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let listItem of selectedList; index as i"
+            (click)="updateSelection(listItem, i)" (dblclick)="onEditRecord()"
+            [class.active]="i == selectedRow">
+
+
+          <!-- key -->
+          <th scope=" row" class="text-left">
+            <ngb-highlight [result]="listItem.key" [term]="findInList">
+            </ngb-highlight>
+          </th>
+
+          <!-- value -->
+          <td class="text-left">
+            <ngb-highlight [result]="listItem.value" [term]="findInList">
+            </ngb-highlight>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- /*****************************************/ -->
+
+<ng-template #content let-modal>
+  <!-- header -->
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Eliminar el registro</h4>
+
+    <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- body -->
+  <div class="modal-body">
+
+    <p class="small">Está seguro que quiere eliminar la variable:</p>
+
+    <p class="h2">{{selectedRecord.key}}</p>
+
+    <p class="h4">¡Esta acción es irreversible!</p>
+
+  </div>
+  <!-- buttons -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" ngbAutofocus
+            (click)="modal.close('Save click')">No</button>
+
+    <button type="button" class="btn btn-danger"
+            (click)="onDeleteRecord(selectedRecord)">Si</button>
+  </div>
+</ng-template>
