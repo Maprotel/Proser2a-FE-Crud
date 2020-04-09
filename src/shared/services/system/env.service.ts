@@ -1,20 +1,20 @@
 import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: "root"
+providedIn: "root"
 })
 export class EnvService {
-  // Host
-  public host = "http://localhost:4200";
+// Host
+public host = "http://localhost:4200";
 
-  // API url
-  public apiUrl = "http://localhost:3151";
+// API url
+public apiUrl = "http://localhost:3151";
 
-  // Version
-  public version = "1.0.0";
+// Version
+public version = "1.0.0";
 
-  // Whether or not to enable debug mode
-  public enableDebug = true;
+// Whether or not to enable debug mode
+public enableDebug = true;
 
-  constructor() {}
+constructor() {}
 }

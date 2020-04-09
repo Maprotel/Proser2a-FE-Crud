@@ -1,58 +1,56 @@
-import { TestPageComponent } from "./pages/test-page/test-page.component";
-import { RegisterComponent } from "./pages/register/register.component";
-import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-
 import { AppComponent } from "./app.component";
-import { HomeComponent } from "./pages/home/home.component";
-import { LoginComponent } from "./pages/login/login.component";
-import { ErrorComponent } from "./pages/error/error.component";
+import { AuthGuard } from "src/shared";
 
 const routes: Routes = [
-  {
-    path: "",
-    component: AppComponent,
-    children: [
-      {
+    {
         path: "",
-        redirectTo: "home",
-        pathMatch: "full"
-      },
-      {
-        path: "home",
-        component: HomeComponent
-      },
-      {
-        path: "login",
-        component: LoginComponent
-      },
-      {
-        path: "register",
-        component: RegisterComponent
-      },
-      {
-        path: "test-page",
-        component: TestPageComponent
-      },
-
-      {
-        path: "layout",
         loadChildren: () =>
-          import("./layout/layout.module").then(m => m.LayoutModule)
-      }
-    ]
-  },
-
-  { path: "error", component: ErrorComponent },
-
-  { path: "not-found", component: NotFoundComponent },
-  // NAVIGATE TO NOT FOUND PAGE
-  { path: "**", redirectTo: "not-found" }
+            import("./layout/layout.module").then(m => m.LayoutModule),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: "dashboard",
+        loadChildren: () =>
+            import("./layout/dashboard/dashboard.module").then(m => m.DashboardModule)
+    },
+    {
+        path: "login",
+        loadChildren: () =>
+            import("./pages/login/login.module").then(m => m.LoginModule)
+    },
+    {
+        path: "signup",
+        loadChildren: () =>
+            import("./pages/signup/signup.module").then(m => m.SignupModule)
+    },
+    {
+        path: "error",
+        loadChildren: () =>
+            import("./pages/server-error/server-error.module").then(
+                m => m.ServerErrorModule
+            )
+    },
+    {
+        path: "access-denied",
+        loadChildren: () =>
+            import("./pages/access-denied/access-denied.module").then(
+                m => m.AccessDeniedModule
+            )
+    },
+    {
+        path: "not-found",
+        loadChildren: () =>
+            import("./pages/not-found/not-found.module").then(
+                m => m.NotFoundModule
+            )
+    },
+    { path: "**", redirectTo: "not-found" }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}
